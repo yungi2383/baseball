@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function createBaseball(num = 3){
+        let arr = new Array(10).fill().map((arr, index) => index);
+        let random = [];
+        for(let i = 0; i < num; i++){
+            const rand = Math.floor(Math.random() * (10 - i));
+            random.push(arr[rand]);
+            arr.splice(rand, 1);
+        }   
+            return random
+    }
+
+    const baseball = createBaseball()
+   
+    console.log("컴퓨터가 숫자를 생성하였습니다. 답을 맞춰보세요!")
+    let count = 1
+    let input = ''
+    let list_input = []
+   
+    
+    do {
+        input = prompt(`${count}번째 시도 : `)
+        console.log(`${count}번째 시도 : ${input}`)
+        list_input = input.split('').map(Number)
+        count++
+        let s = 0;
+        let b = 0;
+        for(let i=0; i<baseball.length; i++){
+            baseball[i] === list_input[i] && s++
+            baseball.find(x => x === list_input[i]) !== undefined && b++
+        }
+        if (s===3) {
+            console.log(`${s}S`)
+        } else if (b===3) {
+            console.log(`${b-s}B`)
+        } else {
+            console.log(`${b-s}B${s}S`)
+        }
+        
+    } while (JSON.stringify(list_input) !== JSON.stringify(baseball))
+    console.log(`${count-1}번만에 맞히셨습니다.`)
+    console.log("게임을 종료합니다.")
+
+</script>
+<body>
+</body>
+</html>
